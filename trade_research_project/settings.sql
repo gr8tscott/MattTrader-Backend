@@ -1,0 +1,3 @@
+CREATE DATABASE trade;
+CREATE USER tradeuser WITH PASSWORD 'trade';
+GRANT ALL PRIVILEGES ON DATABASE trade TO tradeuser;
