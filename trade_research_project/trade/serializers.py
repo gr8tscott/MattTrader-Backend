@@ -2,21 +2,16 @@ from rest_framework import serializers
 from .models import User, Watchlist, Stock
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    watchlists = serializers.HyperlinkedRelatedField(
-        view_name='watchlist_detail',
-        many=True,
-        read_only=True
-    )
+class StockSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
-        model = User
-        fields = ('id', 'name', 'watchlists', 'email', 'password',)
+        model = Stock
+        fields = ('id', 'ticker', 'watchlist',)
 
 
 class WatchlistSerializer(serializers.HyperlinkedModelSerializer):
-    stocks = serializers.HyperlinkedRelatedField(
-        view_name='stock_detail',
+    stocks = StockSerializer(
+
         many=True,
         read_only=True
     )
@@ -26,12 +21,13 @@ class WatchlistSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name', 'stocks',)
 
 
-class StockSerializer(serializers.HyperlinkedModelSerializer):
-    watchlist = serializers.HyperlinkedRelatedField(
-        view_name='watchlist_detail',
+class UserSerializer(serializers.ModelSerializer):
+    watchlists = WatchlistSerializer(
+
+        many=True,
         read_only=True
     )
 
     class Meta:
-        model = Stock
-        fields = ('id', 'ticker', 'watchlist',)
+        model = User
+        fields = ('id', 'name', 'watchlists', 'email', 'password',)
