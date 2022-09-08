@@ -6,6 +6,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register('watchlists', views.WatchlistView)
 router.register('stocks', views.StockView)
+router.register('create-stock', views.CreateStockView)
 router.register('user', views.UserView)
 urlpatterns = [
     path('', include(router.urls))

@@ -9,6 +9,12 @@ class StockSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'ticker', 'watchlist',)
 
 
+class CreateStockSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stock
+        fields = ('ticker')
+
+
 class WatchlistSerializer(serializers.HyperlinkedModelSerializer):
     stocks = StockSerializer(
 
